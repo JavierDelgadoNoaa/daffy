@@ -1,0 +1,22 @@
+archive:
+  for transfer step, skip the .tgz files (e.g. Diapost.tgz and postproc.tgz) since generally you want the 
+  uncompressed files at the transfer host
+  Also for transfer step: be able to skip arbitrary files (passed in as $* to transfer() ) e.g. to skip 
+    fourier_cpx files
+
+wrf: 
+ - End time should be T seconds after the cycle_freq, where T is the 
+   time corresponding to the last multi-time-level input
+     -> The first applies to wps as well
+
+ - Need to set auxhist to the frequency needed for multi-time-level inputs
+
+
+gsi: 
+ -ensmean
+ - copy wrf_inou? files
+
+-workflow_generator for enkf
+
+-Figure out what variables are needed by UPP and Diapost and use the for the ges
+

@@ -1,0 +1,6 @@
+&fileio
+        filename = 'wrfrst_d01_2005-08-01_06:00:00'
+        analdate = 2005080106
+        debug    = .true.
+/
+

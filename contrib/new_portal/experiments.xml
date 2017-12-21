@@ -1,0 +1,2554 @@
+<?xml version="1.0" ?>
+<daffy_experiments>
+
+	<experiment da_type="enkf" uuid="62785997593707715711865528300500076670">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		118:119
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			/home/Javier.Delgado/projects/osse/static/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			/home/Javier.Delgado/projects/osse/experiments/corvette/enkf/tcv_only/exec/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			/home/Javier.Delgado/projects/osse/experiments/corvette/enkf/tcv_only/exec/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			/home/Javier.Delgado/projects/osse/static/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			/home/Javier.Delgado/apps/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			/home/Javier.Delgado/projects/osse/static/meso_osse/data/
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="tc_vitals">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				/home/Javier.Delgado/apps/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				/home/Javier.Delgado/projects/osse/experiments/corvette/enkf/tcv_only/exec/templates/enkf.nml
+				</namelist_template>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141026350
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="gsi" id="controlGsi_stingray" uuid="210162197227629845142416490417784014974">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		121:122
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_a.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			False
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<gsi_analysis_configuration>
+				<background_error_horizontal_scale>
+				0.2,0.4,0.8,
+				</background_error_horizontal_scale>
+				<assimilation_time_window>
+				6
+				</assimilation_time_window>
+				<background_error_stats_file>
+				[APPS_ROOT]/gsi/comgsi/3.3/fix/Big_Endian/nam_nmmstat_na.gcv
+				</background_error_stats_file>
+			</gsi_analysis_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141029201
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="controlGsi_stingray_enkf" uuid="32904081190438010871749894431548295294">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		123
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			201410302319
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="coldstart" id="controlGsi_mx5" uuid="273159783584707797659828474029993805950">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		123
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+
+		<experiment_completion>
+			20141031410
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="controlGsi_stingray" uuid="298053802442880598540388010457900173438">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		123
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			2014116719
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="controlGsi_stingray" uuid="264610369040822051215602844421245054">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		123
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+				<adaptive_posterior_inflation_nh>
+				0.5
+				</adaptive_posterior_inflation_nh>
+				<adaptive_posterior_inflation_sh>
+				0.5
+				</adaptive_posterior_inflation_sh>
+				<adaptive_posterior_inflation_tropics>
+				0.5
+				</adaptive_posterior_inflation_tropics>
+				<min_inflation>
+				1.0
+				</min_inflation>
+				<max_inflation>
+				100.0
+				</max_inflation>
+				<horizontal_localization_nh>
+				1200.0
+				</horizontal_localization_nh>
+				<horizontal_localization_sh>
+				1200.0
+				</horizontal_localization_sh>
+				<horizontal_localization_tropics>
+				1200.0
+				</horizontal_localization_tropics>
+				<observation_time_localization>
+				1e+30
+				</observation_time_localization>
+				<vertical_localization_nh_convobs>
+				1.0
+				</vertical_localization_nh_convobs>
+				<vertical_localization_sh_convobs>
+				1.0
+				</vertical_localization_sh_convobs>
+				<vertical_localization_tropics_convobs>
+				1.0
+				</vertical_localization_tropics_convobs>
+				<vertical_localization_nh_satobs>
+				1.0
+				</vertical_localization_nh_satobs>
+				<vertical_localization_sh_satobs>
+				1.0
+				</vertical_localization_sh_satobs>
+				<vertical_localization_tropics_satobs>
+				1.0
+				</vertical_localization_tropics_satobs>
+				<vertical_localization_nh_psobs>
+				1.0
+				</vertical_localization_nh_psobs>
+				<vertical_localization_sh_psobs>
+				1.0
+				</vertical_localization_sh_psobs>
+				<vertical_localization_tropics_psobs>
+				1.0
+				</vertical_localization_tropics_psobs>
+				<inflation_smoothing_parameter>
+				-1.0
+				</inflation_smoothing_parameter>
+				<enkf_satbias_iterations>
+				6
+				</enkf_satbias_iterations>
+				<posterior_prior_threshold>
+				0.5
+				</posterior_prior_threshold>
+				<use_ensrf>
+				True
+				</use_ensrf>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141191040
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="control_enkfConfig5b" uuid="86929223608056233653402329432439834750">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		123
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+				<adaptive_posterior_inflation_nh>
+				0.5
+				</adaptive_posterior_inflation_nh>
+				<adaptive_posterior_inflation_sh>
+				0.5
+				</adaptive_posterior_inflation_sh>
+				<adaptive_posterior_inflation_tropics>
+				0.5
+				</adaptive_posterior_inflation_tropics>
+				<min_inflation>
+				1.0
+				</min_inflation>
+				<max_inflation>
+				100.0
+				</max_inflation>
+				<horizontal_localization_nh>
+				600.0
+				</horizontal_localization_nh>
+				<horizontal_localization_sh>
+				600.0
+				</horizontal_localization_sh>
+				<horizontal_localization_tropics>
+				600.0
+				</horizontal_localization_tropics>
+				<observation_time_localization>
+				1e+30
+				</observation_time_localization>
+				<vertical_localization_nh_convobs>
+				1.0
+				</vertical_localization_nh_convobs>
+				<vertical_localization_sh_convobs>
+				1.0
+				</vertical_localization_sh_convobs>
+				<vertical_localization_tropics_convobs>
+				1.0
+				</vertical_localization_tropics_convobs>
+				<vertical_localization_nh_satobs>
+				1.0
+				</vertical_localization_nh_satobs>
+				<vertical_localization_sh_satobs>
+				1.0
+				</vertical_localization_sh_satobs>
+				<vertical_localization_tropics_satobs>
+				1.0
+				</vertical_localization_tropics_satobs>
+				<vertical_localization_nh_psobs>
+				1.0
+				</vertical_localization_nh_psobs>
+				<vertical_localization_sh_psobs>
+				1.0
+				</vertical_localization_sh_psobs>
+				<vertical_localization_tropics_psobs>
+				1.0
+				</vertical_localization_tropics_psobs>
+				<inflation_smoothing_parameter>
+				-1.0
+				</inflation_smoothing_parameter>
+				<enkf_satbias_iterations>
+				6
+				</enkf_satbias_iterations>
+				<posterior_prior_threshold>
+				0.5
+				</posterior_prior_threshold>
+				<use_ensrf>
+				True
+				</use_ensrf>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			201411101438
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="control_enkfConfig_justHorz" uuid="191944579074068536831186087263000250494">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<daffy_revision>
+		124
+		</daffy_revision>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+				<adaptive_posterior_inflation_nh>
+				0.9
+				</adaptive_posterior_inflation_nh>
+				<adaptive_posterior_inflation_sh>
+				0.9
+				</adaptive_posterior_inflation_sh>
+				<adaptive_posterior_inflation_tropics>
+				0.9
+				</adaptive_posterior_inflation_tropics>
+				<min_inflation>
+				1.0
+				</min_inflation>
+				<max_inflation>
+				100.0
+				</max_inflation>
+				<horizontal_localization_nh>
+				600.0
+				</horizontal_localization_nh>
+				<horizontal_localization_sh>
+				600.0
+				</horizontal_localization_sh>
+				<horizontal_localization_tropics>
+				600.0
+				</horizontal_localization_tropics>
+				<observation_time_localization>
+				1e+30
+				</observation_time_localization>
+				<vertical_localization_nh_convobs>
+				1.0
+				</vertical_localization_nh_convobs>
+				<vertical_localization_sh_convobs>
+				1.0
+				</vertical_localization_sh_convobs>
+				<vertical_localization_tropics_convobs>
+				1.0
+				</vertical_localization_tropics_convobs>
+				<vertical_localization_nh_satobs>
+				1.0
+				</vertical_localization_nh_satobs>
+				<vertical_localization_sh_satobs>
+				1.0
+				</vertical_localization_sh_satobs>
+				<vertical_localization_tropics_satobs>
+				1.0
+				</vertical_localization_tropics_satobs>
+				<vertical_localization_nh_psobs>
+				1.0
+				</vertical_localization_nh_psobs>
+				<vertical_localization_sh_psobs>
+				1.0
+				</vertical_localization_sh_psobs>
+				<vertical_localization_tropics_psobs>
+				1.0
+				</vertical_localization_tropics_psobs>
+				<inflation_smoothing_parameter>
+				-1.0
+				</inflation_smoothing_parameter>
+				<enkf_satbias_iterations>
+				6
+				</enkf_satbias_iterations>
+				<posterior_prior_threshold>
+				0.99
+				</posterior_prior_threshold>
+				<use_ensrf>
+				True
+				</use_ensrf>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141111948
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="control_enkfConfig_justHorzB" uuid="98199852646164092776232324682221013118">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<daffy_revision>
+		124
+		</daffy_revision>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<experiment_execution_directory>
+		/home/Javier.Delgado/projects/osse/experiments/test_enkf_cfg_horzB/exec
+		</experiment_execution_directory>
+		<experiment_run_directory>
+		/home/Javier.Delgado/projects/osse/experiments/test_enkf_cfg_horzB/run
+		</experiment_run_directory>
+		<experiment_archive_directory>
+		/HFIP/hur-aoml/Javier.Delgado/osse/experiments//stingray/enkf/control_enkfConfig_justHorzB/98199852646164092776232324682221013118
+
+		</experiment_archive_directory>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+				<adaptive_posterior_inflation_nh>
+				0.5
+				</adaptive_posterior_inflation_nh>
+				<adaptive_posterior_inflation_sh>
+				0.5
+				</adaptive_posterior_inflation_sh>
+				<adaptive_posterior_inflation_tropics>
+				0.5
+				</adaptive_posterior_inflation_tropics>
+				<min_inflation>
+				1.0
+				</min_inflation>
+				<max_inflation>
+				100.0
+				</max_inflation>
+				<horizontal_localization_nh>
+				300.0
+				</horizontal_localization_nh>
+				<horizontal_localization_sh>
+				300.0
+				</horizontal_localization_sh>
+				<horizontal_localization_tropics>
+				300.0
+				</horizontal_localization_tropics>
+				<observation_time_localization>
+				1e+30
+				</observation_time_localization>
+				<vertical_localization_nh_convobs>
+				1.0
+				</vertical_localization_nh_convobs>
+				<vertical_localization_sh_convobs>
+				1.0
+				</vertical_localization_sh_convobs>
+				<vertical_localization_tropics_convobs>
+				1.0
+				</vertical_localization_tropics_convobs>
+				<vertical_localization_nh_satobs>
+				1.0
+				</vertical_localization_nh_satobs>
+				<vertical_localization_sh_satobs>
+				1.0
+				</vertical_localization_sh_satobs>
+				<vertical_localization_tropics_satobs>
+				1.0
+				</vertical_localization_tropics_satobs>
+				<vertical_localization_nh_psobs>
+				1.0
+				</vertical_localization_nh_psobs>
+				<vertical_localization_sh_psobs>
+				1.0
+				</vertical_localization_sh_psobs>
+				<vertical_localization_tropics_psobs>
+				1.0
+				</vertical_localization_tropics_psobs>
+				<inflation_smoothing_parameter>
+				-1.0
+				</inflation_smoothing_parameter>
+				<enkf_satbias_iterations>
+				6
+				</enkf_satbias_iterations>
+				<posterior_prior_threshold>
+				0.5
+				</posterior_prior_threshold>
+				<use_ensrf>
+				True
+				</use_ensrf>
+				<additive_inflation_coefficient>
+				0.5
+				</additive_inflation_coefficient>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			201411131326
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="gsi" id="control_gsiStingray_noDetFcst" uuid="222553117083186709190490422769295476862">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<daffy_revision>
+		124:125
+		</daffy_revision>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<experiment_execution_directory>
+		/home/Javier.Delgado/projects/osse/experiments/stingray/gsi/control_v1/temp/exec
+		</experiment_execution_directory>
+		<experiment_run_directory>
+		/home/Javier.Delgado/projects/osse/experiments/stingray/gsi/control_v1/temp/run
+		</experiment_run_directory>
+		<experiment_archive_directory>
+		/HFIP/hur-aoml/Javier.Delgado/osse/experiments//stingray/gsi/control_gsiStingray_noDetFcst/222553117083186709190490422769295476862
+
+		</experiment_archive_directory>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_a.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			False
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<gsi_analysis_configuration>
+				<background_error_horizontal_scale>
+				0.2,0.4,0.8,
+				</background_error_horizontal_scale>
+				<assimilation_time_window>
+				6
+				</assimilation_time_window>
+				<background_error_stats_file>
+				[APPS_ROOT]/gsi/comgsi/3.3/fix/Big_Endian/nam_nmmstat_na.gcv
+				</background_error_stats_file>
+			</gsi_analysis_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141118189
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="gsi" id="control_gsi_stingray_daffy112" uuid="324428399649807297917820081235771705470">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<daffy_revision>
+		126
+		</daffy_revision>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<experiment_execution_directory>
+		/mnt/lfs3/projects/hur-aoml/Javier.Delgado/osse/experiments/stingray/gsi/control_v1/jcsdaGSI_control_encore_daffy112/exec
+		</experiment_execution_directory>
+		<experiment_run_directory>
+		/mnt/lfs3/projects/hur-aoml/Javier.Delgado/osse/experiments/stingray/gsi/control_v1/jcsdaGSI_control_encore_daffy112/run
+		</experiment_run_directory>
+		<experiment_archive_directory>
+		/HFIP/hur-aoml/Javier.Delgado/osse/experiments//stingray/gsi/control_gsi_stingray_daffy112/324428399649807297917820081235771705470
+
+		</experiment_archive_directory>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_a.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			False
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<gsi_analysis_configuration>
+				<background_error_horizontal_scale>
+				0.2,0.4,0.8,
+				</background_error_horizontal_scale>
+				<assimilation_time_window>
+				6
+				</assimilation_time_window>
+				<background_error_stats_file>
+				[APPS_ROOT]/gsi/comgsi/3.3/fix/Big_Endian/nam_nmmstat_na.gcv
+				</background_error_stats_file>
+			</gsi_analysis_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			201411191348
+		</experiment_completion>
+	</experiment>
+
+	<experiment da_type="enkf" id="control_enkfConfig_justHorzB" uuid="31578302318318112111327193802464479358">
+		<spinup_date>
+		200508010000
+		</spinup_date>
+		<first_data_assimilation_date>
+		200508010600
+		</first_data_assimilation_date>
+		<end_date>
+		200508050000
+		</end_date>
+		<cycle_frequency>
+		21600
+		</cycle_frequency>
+		<user>
+		Javier.Delgado
+		</user>
+		<daffy_revision>
+		126
+		</daffy_revision>
+		<supercomputer>
+		JET
+		</supercomputer>
+		<experiment_execution_directory>
+		/home/Javier.Delgado/projects/osse/experiments/test_enkf_cfg3/exec
+		</experiment_execution_directory>
+		<experiment_run_directory>
+		/home/Javier.Delgado/projects/osse/experiments/test_enkf_cfg3/run
+		</experiment_run_directory>
+		<experiment_archive_directory>
+		/HFIP/hur-aoml/Javier.Delgado/osse/experiments//stingray/enkf/control_enkfConfig_justHorzB/31578302318318112111327193802464479358
+
+		</experiment_archive_directory>
+		<model>
+			<hwrf_version>
+			3.6
+			</hwrf_version>
+			<gfs_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/GFS/
+			</gfs_data_root>
+			<deterministic_forecast_gfs_data_id>
+			JCSDA_control
+			</deterministic_forecast_gfs_data_id>
+			<ensemble_forecast_gfs_data_id>
+			climapert
+			</ensemble_forecast_gfs_data_id>
+			<hwrf_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/hwrf2014_9.3_OSSEONE.nl
+			</hwrf_namelist_template>
+		</model>
+		<postprocessing>
+			<unipost_version>
+			HWRF v3.5b, downloaded 11/7/2014, with OSSE modifications
+
+			</unipost_version>
+			<diapost_version>
+			Alleged Version &quot;3.2.1&quot;, copied 1/13/2013, with no modifications
+
+			</diapost_version>
+		</postprocessing>
+		<domain name="OSSEONE">
+			<firstguess_configuration>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</firstguess_configuration>
+			<deterministic_forecast_configuration>
+				<tcvitals_for_nest_path>
+				[STATIC_DATA_ROOT]/nature/TCVITALS/locations_arw_d03
+				</tcvitals_for_nest_path>
+				<time_step>
+				15.0
+				</time_step>
+				<grid>
+					<dx>
+					0.06
+					</dx>
+					<dy>
+					0.06
+					</dy>
+					<grid_size_we>
+					354
+					</grid_size_we>
+					<grid_size_sn>
+					412
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+				<grid>
+					<dx>
+					0.02
+					</dx>
+					<dy>
+					0.02
+					</dy>
+					<grid_size_we>
+					176
+					</grid_size_we>
+					<grid_size_sn>
+					340
+					</grid_size_sn>
+					<num_vertical_levels>
+					61
+					</num_vertical_levels>
+				</grid>
+			</deterministic_forecast_configuration>
+		</domain>
+		<data_assimilation>
+			<gsi_version>
+			comGSI 3.3 vanilla
+			</gsi_version>
+			<gsi_namelist_template>
+			[EXPERIMENT_TOPDIR]/templates/gsiparm_o_minus_f.nl
+			</gsi_namelist_template>
+			<analysis_domain>
+			01
+			</analysis_domain>
+			<multi_time_level_analysis>
+			True
+			</multi_time_level_analysis>
+			<satinfo_file>
+			[STATIC_DATA_ROOT]/gsi/hwrf_basinscale_satinfo.txt
+			</satinfo_file>
+			<convinfo_file>
+			[APPS_ROOT]/gsi/comgsi/3.3/fix/global_convinfo.txt
+			</convinfo_file>
+			<number_of_time_levels>
+			7
+			</number_of_time_levels>
+			<perform_satellite_thinning>
+			True
+			</perform_satellite_thinning>
+			<observations_data_root>
+			[STATIC_DATA_ROOT]/meso_osse/data/OSSEONE
+			</observations_data_root>
+			<observations>
+				<observations_configuration name="control_v1">
+					<observation data_path="[GSI_DATA_TOPDIR]/GPSRO" file_pattern="gpsro.n_t511_*@Y@m@d@H.bfr" gsi_target_file="gpsrobufr" tag="gpsro"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SAT_CONTROL" file_pattern="prepqc.osse.@Y@m@d@H.viir" gsi_target_file="prepbufr" tag="prepqc"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="airs281_aqua.n_t511_*@Y@m@d@H.bfr" gsi_target_file="airsbufr" tag="airs_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_aqua*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_aqua"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_metop*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n15*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n15"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n18*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsua_n19*_N@Y@m@d@H.bfr" gsi_target_file="amsuabufr" tag="amsua_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="amsub_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="amsubbufr" tag="amsub"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="atms_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="atmsbufr" tag="atms_npp"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="cris399_npp.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="crisbufr" tag="cris"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD1*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd1_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD2*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd2_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD3*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd3_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="sndrD4*_N@Y@m@d@H.bfr" gsi_target_file="gsnd1bufr" tag="sndrd4_g13"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs3_n17.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="hirs3bufr" tag="hirs3_n17"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_n19*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="hirs4_metop*_N@Y@m@d@H.bfr" gsi_target_file="hirs4bufr" tag="hirs4_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="iasi616_metop-a.n_t511_*_N@Y@m@d@H.bfr" gsi_target_file="iasibufr" tag="iasi"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_metop*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_metop-a"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n18*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n18"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="mhs_n19*_N@Y@m@d@H.bfr" gsi_target_file="mhsbufr" tag="mhs_n19"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="seviri_m09.*_N@Y@m@d@H.bfr" gsi_target_file="seviribufr" tag="seviri_m09"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/RAD_CONTROL" file_pattern="ssmis_f16.*_N@Y@m@d@H.bfr" gsi_target_file="ssmitbufr" tag="ssmis_f16"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="icegrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="ice"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="snogrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="snow"/>
+					<observation data_path="[GSI_DATA_TOPDIR]/SST-ICE" file_pattern="sstgrb.gdas.@Y@m@d@H" gsi_target_file="prepbufr" tag="sst"/>
+				</observations_configuration>
+				<observations_configuration name="tc_vitals_d03">
+					<observation data_path="[GSI_DATA_TOPDIR]/tc_vitals_d03" file_pattern="@Y@m@d@H" gsi_target_file="tcvitl" tag="tc_vitals"/>
+				</observations_configuration>
+			</observations>
+			<enkf_configuration>
+				<enkf_version>
+				Revision 16104 with HRD modifications
+				</enkf_version>
+				<enkf_path>
+				[APPS_ROOT]/hybrid_enkf_system/enkf/snapshots/201402/osse
+				</enkf_path>
+				<namelist_template>
+				[EXPERIMENT_TOPDIR]/templates/enkf.nml
+				</namelist_template>
+				<adaptive_posterior_inflation_nh>
+				0.9
+				</adaptive_posterior_inflation_nh>
+				<adaptive_posterior_inflation_sh>
+				0.9
+				</adaptive_posterior_inflation_sh>
+				<adaptive_posterior_inflation_tropics>
+				0.9
+				</adaptive_posterior_inflation_tropics>
+				<min_inflation>
+				1.0
+				</min_inflation>
+				<max_inflation>
+				100.0
+				</max_inflation>
+				<horizontal_localization_nh>
+				1200.0
+				</horizontal_localization_nh>
+				<horizontal_localization_sh>
+				1200.0
+				</horizontal_localization_sh>
+				<horizontal_localization_tropics>
+				1200.0
+				</horizontal_localization_tropics>
+				<observation_time_localization>
+				1e+30
+				</observation_time_localization>
+				<vertical_localization_nh_convobs>
+				1.0
+				</vertical_localization_nh_convobs>
+				<vertical_localization_sh_convobs>
+				1.0
+				</vertical_localization_sh_convobs>
+				<vertical_localization_tropics_convobs>
+				1.0
+				</vertical_localization_tropics_convobs>
+				<vertical_localization_nh_satobs>
+				1.0
+				</vertical_localization_nh_satobs>
+				<vertical_localization_sh_satobs>
+				1.0
+				</vertical_localization_sh_satobs>
+				<vertical_localization_tropics_satobs>
+				1.0
+				</vertical_localization_tropics_satobs>
+				<vertical_localization_nh_psobs>
+				1.0
+				</vertical_localization_nh_psobs>
+				<vertical_localization_sh_psobs>
+				1.0
+				</vertical_localization_sh_psobs>
+				<vertical_localization_tropics_psobs>
+				1.0
+				</vertical_localization_tropics_psobs>
+				<inflation_smoothing_parameter>
+				-1.0
+				</inflation_smoothing_parameter>
+				<enkf_satbias_iterations>
+				6
+				</enkf_satbias_iterations>
+				<posterior_prior_threshold>
+				0.5
+				</posterior_prior_threshold>
+				<use_ensrf>
+				True
+				</use_ensrf>
+				<additive_inflation_coefficient>
+				0.5
+				</additive_inflation_coefficient>
+			</enkf_configuration>
+		</data_assimilation>
+
+		<experiment_completion>
+			20141120342
+		</experiment_completion>
+	</experiment>
+</daffy_experiments>

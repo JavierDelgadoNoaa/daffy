@@ -1,0 +1,50 @@
+&datein
+  inp%bcc=__CENTURY__,
+  inp%byy=__2DIG_YEAR__,
+  inp%bmm=__MONTH__,
+  inp%bdd=__DAY__,
+  inp%bhh=__HOUR__,
+  inp%model=17,           !hwrf
+  inp%lt_units='hours'    !(v)
+  inp%file_seq='multi'
+  inp%modtyp='regional',
+  inp%nesttyp='moveable'  ! if no nest?
+/
+&atcfinfo
+  atcfnum=81, !ignored
+  atcfname='HWRF',
+  atcfymdh=__YMDH__
+  atcffreq=__ATCF_FREQ_CENTAHOURS__ ! centahours
+/
+&trackerinfo
+  trkrinfo%westbd=,   ! these 4 are for genesis runs
+  trkrinfo%eastbd=,
+  trkrinfo%northbd=,
+  trkrinfo%southbd=,
+  trkrinfo%type='tracker',
+  trkrinfo%mslpthresh=0.0015,   !(v)
+  trkrinfo%v850thresh=1.5000,   !(v)
+  trkrinfo%gridtype='regional',
+  trkrinfo%contint=100.0,       !(v)
+  trkrinfo%out_vit='y'          ! only used in genesis mode
+/
+&phaseinfo
+  phaseflag='n',       !(v)
+  phasescheme='both'   !(v)
+  wcore_depth=1.0      !(v)
+/
+&structinfo
+  structflag='n',      ! (v) do we  want to compute additional diags for cyclone wind structure?
+  ikeflag='n'          ! (v) do we want integrated kinetic energy and surge damage potential?
+/
+&fnameinfo
+  gmodname='hwrf', ! hwrf.d02.gsi.test.200508010600.048.00.grib
+  rundescr='__RUN_DESCRIPTION__',
+  atcfdescr='__ATCF_DESCRIPTION__'
+/
+&waitinfo
+  use_waitfor='n',
+/
+&verbose
+   verb=__TRACKER_VERBOSITY__
+/

@@ -1,0 +1,114 @@
+1.1.4
+  - Added GFDL tracker script 
+  - Separated UPP and Diapost scripts from the cummulative "post_fcst" script, since their requirements are
+    different and we may need to start using MPI for UPP.
+  - Added code to workflow_generator to allow separate queue for different processes. By default, Diapost
+    will now use bigmem, since it is needed for the 3km runs
+  - Some bugfixes for hourly cycling
+  - Added code in config files to automatically detect if we're running on Theia and set variables and
+    modules accordingly.
+  - Added STRICT_MODE functionality
+  - Added daffy_common script that runs at the beginning of all job scripts
+  - Added 3km configuration to contrib after testing 3km cold start, gsi, and HWRF experiments on Theia
+1.1.3
+  - Separated the code that processes the observation config files into its own library, so that we can put the
+    observation files' timestamp in to the local database (config.xml). This also allows us to finally 
+    have the SPORADIC_DATASETS in gsi.cfg.sh funtional.
+  - Added ability to Generate UPP output at less than hourly granularity. This means I also had to change
+     the convention of the output file.
+1.1.2
+  - Added script to automatically archive to MSS when experiment completes and also remove a lot of the data
+     -> This is all configurable in archive.cfg.sh
+  - Changed "conventional" to "control_v1"
+  - Made TCVitals assimilation an entry in the gsi_ob_mappings rather than having separate settings for it
+    in the GSI and experiment config files
+  - Added "postproc_experiment" task, which performs experiment-wide postprocessing (e.g. experimental averages
+    for domain stats and TC vitals). This makes things a little cleaner and ensures that the experimental averages
+    account for all forecasts, as opposed to before where it was possible that the averages would be missing
+    data from cycles that failed and finished later.
+  - Changed task name of "postproc_fcst" to "post_fcst". This makes it possible to see what cycle the postproc
+    jobs corespond to when using qstat
+  - Added EnKF configuration parameters to enkf.cfg.sh, so the template does not need to be modified.
+  - Global database merging is functional, although we will probably add additional elements in the future
+  - Made changes to reflect new directory structure (i.e. lfs2->lfs3 migration
+  - Added logic to check when experiment completes.
+
+1.1.1
+  - This is an intermediate update with some bug fixes as well as added functionality, including
+    - changes to enable HWRF 2014 
+    - Generation of (partial) experiment.xml file containing key data about the experiment. In the
+      future, these will be merged with a global XML database of experiment runs
+    - Changes for comGSI 3.3
+    - Made it easier to migrate to different computers with different directory structures
+      by adding new config variables.
+    - Changed WPS script and config to use pattern instead of prefix and suffix
+    - Added scripts for running UPP on the ensemble forecast prior and posteriors
+    - EnKF now works with wrfinput (NOTE: this required changes to the EnKF code)
+    - Fixed some issues that propped up with workflow generation
+    - Related to the above, we now create a separate analysis file after GSI/EnKF in order to 
+      ensure idempotence of HWRF script
+    - Added 'MODEL_CONFIG_ID' parameter to configuration. This will be used to simplify
+      using different versions of HWRF and associated tools. It will affect where DAFFY will 
+      look for executables and static, previously generated data, related to HWRF.
+    - Made global logging more elegant and useful
+    - Added scripts to run UPP on the ensemble prior/posterior
+    - Added functionality for running a series of cold start experiments
+
+1.1.0.9
+  - buggy release with the new XML database scheme:
+    - Generation of (partial) experiment.xml file containing key data about the experiment. In the
+      future, these will be merged with a global XML database of experiment runs
+    - Changes for comGSI 3.3
+
+1.1.0.1
+  - This is an intermediate update with some bug fixes as well as added functionality, including
+    - changes to enable HWRF 2014 to be used with GSI experiments (does NOT work with EnKF yet)
+    - Made it easier to migrate to different systems with different directory structures
+      by adding new config variables.
+    - Changed WPS script and config to use pattern instead of prefix and suffix
+
+1.1.0
+  - Added execution of domain average code for AOML OSSE
+  - Added EnKF functionality
+  - Changed postprocessing paradigm - to use scripts in $SCRIPTS/post
+  - Changed GSI-experiment related portions of code to fit new paradigm
+  - Added functionality to ignore SIGINT while Rocoto is being invoked to 
+    reduce the possibilty of the state file being corrupted
+
+1.0.3.2
+ - Modified to use external version of Diapost. Currently, this is the HEDAS/Sim version
+ -> walltime of postproc was increased accordingly, since this one takes about 3.5 minutes
+   per domain Jet
+ - Fixed tile_vs_coldstart
+ - Added @y parameter to the code that translates GSI configuration specifiers (i.e. cfg files in conf/gsi_obs_mappings)
+   to support file names that use 2-digit year
+
+1.0.3.1
+ - Added TCVitals assimilation ability
+ - Added average error plot generation
+
+1.0.3
+ - Fixed bug in gsi job script that was preventing diag_conv_* files from being generated
+ - Implemented --reuse option
+   -> Reads from standard or compressed files
+ - removes the met_nmm files from WPS directories (optionally, in real.sh) and removes FILE* files (in wps.sh)
+ - Made the generation of standard plots optional in postproc config
+ - Removed "_sourceit" workaround since there's nothing ZSH-specific now in the config files
+ - Moved non-entrypoint python scripts to lib/
+ - Added "-d" and "-v" options to rungsi
+ - Started logging info to $DAFFY_LOG
+ - Added satellite input/angle data cycling to GSI script
+
+1.0.2
+ - Simplified the GSI script (i.e. new paradigm for specifying obs to use)
+ - Fixed some postprocessing issues
+ - Added generation of standard plots to the postprocessing script (for cycling)
+
+1.0.1 
+ - Added --warm-init option that starts from an existing output directory (not GFS)
+ - Paradigm shift :
+  - The workflow definition file is only generated when the --cold-init
+    or --warm-init option is passed in.
+ - Made some fixes to the postprocessing scripts (including name change : postproc.zsh -> postproc_cycle.zsh )
+
+

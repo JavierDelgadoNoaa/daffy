@@ -1,0 +1,212 @@
+<html>
+   <head>
+      
+      <script>
+         //new Date().getTime()
+      </script>
+
+      <title>Layout</title>
+      <style type="text/css">
+         h2 {
+            color: green ;
+            font-size: 1em ;
+            text-align: center ;
+         }
+         p {
+            color:red ;
+         }
+         #outerBox { 
+            position: fixed ; 
+            /* width: 65em ; */
+            height:120em ;
+            padding-left: 5em ;
+            padding-right: 5em ;
+            background: #555 ;
+         }
+         #descriptionPanel {
+            position: relative ;
+            width: 7em ;
+            background: yellow ;
+            float: left ;
+         }
+         .mainBox {
+            position: relative ;
+            background: #123 ;
+            float: left ;
+         }
+         .configBox {
+            /*position: relative ; */
+            background: #aaf ;
+            height: 15em ;
+            overflow: scroll ;
+            margin-left: 1em ;
+            padding: 0 ;
+         }
+         .experimentsBox {
+            /* position: relative ; */
+            background: #aaf ;
+            height: 5em ;
+            overflow: scroll ;
+            margin-left: 2em ;
+            /* margin-top: 12em ;  - used for prev. scheme in which labels were on lhs panel */
+            clear: both ;
+         }
+
+         /* Use alternating colors for "rows" of list elements under the config box */
+         .configBox li {
+            background-color: #ffc ;
+         }
+         .configBox li:nth-child(odd) {
+            background-color: #cff ;
+         }
+         /* */
+
+         .formLabel {
+            text-align: right ;
+            float: left ;
+         }
+         .formSelections {
+            text-align: left ;
+            float: left ;
+         }
+         ul.formLabel {
+            margin-top: none ;
+            list-style-type: none ;
+            padding-left: 0.4em ; /* dist between edge of configBox and formLabel */
+         }
+         ul.formLabel li {
+            padding-top: 1em ;
+            margin-left: 0 ;
+            font-weight: 900 ;
+         }
+         ul.formSelections {
+            list-style-type: none ;
+            margin-left: 0.1em ;
+            padding-left: 0.1em ;
+         }
+         ul.formSelections li {
+            padding-top: 1em ;
+            padding-left: 0.3em ;
+         }
+
+         input.da_type {
+            position: absolute ;
+            top: -9999px;
+            left: -9999px;
+             /* For mobile, it's typically better to position checkbox on top of clickable
+                   area and turn opacity to 0 instead. */
+         }
+         
+         label {
+            /* want labels to be like buttons */
+            display: inline-block ;
+            background: white ;
+            border: 2px solid black ;
+            width: 5em ;
+            height: 1.2em ;
+            text-align: center ;
+            margin-bottom: 0 ;
+            padding-bottom: 0 ;
+            border-radius: 6px 6px 6px 6px; /* standards-compliant: (IE) */
+         }
+         input[type=checkbox]:checked + label {
+            background:red ;
+         }
+
+            
+      </style>
+   </head>
+
+   <body>
+      <div id="outerBox">
+         <!--
+         <div id="descriptionPanel">
+            <p>Configuration</p>
+            <p style="margin-top:20em;">Matching Experiments</p>
+         </div>
+         -->
+        
+       
+       <form action="">
+       
+       
+         <div class="mainBox">
+            <h2>Configuration</h2>
+            <div class="configBox">
+               <ul class="formLabel">
+                  <li>Type</li>
+                  <li>Start Date</li>
+                  <li>End Date</li>
+                  <li>Obs</li>
+                  <li>Deterministic <br/>Forecast BC</li>
+               </ul>
+               <ul class="formSelections">
+                  <li>
+                        <input type="checkbox" name="da_type" value="gsi" class="da_type" id="da_type1_gsi"/>
+                        <label for="da_type1_gsi" class="checkButton">GSI</label>
+                        <input type="checkbox" name="da_type" value="enkf" class="da_type" id="da_type1_enkf" />
+                        <label for="da_type1_enkf">EnKF</label>
+                        <input type="checkbox" name="da_type" value="coldstart" class="da_type" id="da_type1_coldstart" />
+                        <label for="da_type1_coldstart">ColdStart</label>
+                   </li>
+                  <li> 8/1/2005 @ 00z </li>
+                  <li> 8/5/2005 @ 00z </li>
+                  <li>Control TCVitals_d03</li>
+               </ul> <!-- form selections -->
+            </div>
+            <h2>Matching Experiments</h2>  
+            <div class="experimentsBox">
+               <ul>
+                  <li>0001</li>
+                  <li>0002</li>
+                  <li>0003</li>
+               </ul>
+            </div>
+         </div> <!-- main box 1 -->
+
+
+
+        <div class="mainBox">
+        <h2>Configuration</h2>
+          <div class="configBox">
+
+               <ul class="formLabel">
+                  <li>Type</li>
+                  <li>Start Date</li>
+                  <li>End Date</li>
+                  <li>Obs</li>
+                  <li>Deterministic <br/>Forecast BC</li>
+               </ul>
+
+               <ul class="formSelections">
+                  <li>
+                     <form action="">
+                        <input type="checkbox" name="da_type" value="gsi" class="da_type" id="da_type2_gsi"/>
+                        <label for="da_type2_gsi" class="checkButton">GSI</label>
+                        <input type="checkbox" name="da_type" value="enkf" class="da_type" id="da_type2_enkf" />
+                        <label for="da_type2_enkf">EnKF</label>
+                        <input type="checkbox" name="da_type" value="coldstart" class="da_type" id="da_type2_coldstart" />
+                        <label for="da_type2_coldstart">ColdStart</label>
+                     </form>
+                   </li>
+                  <li> 8/1/2005 @ 00z </li>
+               </ul> <!-- form selections -->
+            </div>
+            <h2>Matching Experiments</h2>  
+            <div class="experimentsBox">
+               <ul>
+                  <li>0001</li>
+                  <li>0002</li>
+                  <li>0003</li>
+               </ul>
+            </div>
+         </div> <!-- main box 2-->
+
+   
+   </form>
+
+
+      </div> <!-- outter box -->
+
+   </body>
+</html>

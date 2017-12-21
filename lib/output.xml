@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<experiments>
+	
+  
+	<experiment id="123">
+		
+    
+		<gsi>foo</gsi>
+		
+    
+		<model>bar</model>
+		
+  
+	</experiment>
+	
+
+	<experiment id="234">
+		
+  
+		<gsi>spam</gsi>
+		
+  
+		<model>eggs</model>
+		
+
+	</experiment>
+</experiments>

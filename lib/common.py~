@@ -1,0 +1,483 @@
+'''
+Contains subroutines common to GSI and EnKF experiment types
+'''
+import shutil
+from time import sleep
+import os
+import sys
+import random 
+import xml.etree.ElementTree as ET
+from optparse import OptionParser
+import subprocess
+import time
+import xml.dom.minidom
+from daffy_log import DaffyLog
+import uuid
+
+class ExperimentRunner:
+   '''
+   This class is used to encapsulate routines needed to facilitate running
+   of experiments. 
+   '''
+   def get_log(self):
+      return self.log
+   def set_log(self, log):
+      self.log = log
+   def get_cfg(self):
+      return self.cfg
+   
+# 
+# VARS
+#
+DEFAULT_ROCOTO_VERBOSITY = '3' # just shows failures
+
+def get_yyyy_mm_dd_hh_mm(rundate):
+   return time.strftime('%Y_%m_%d_%H_%M', time.localtime(rundate))
+
+def _get_tmp_file(cfg):
+   ''' Return temp file name, which will be named according to the experiment_id and put 
+       in the cfg.rocoto_state_file_temp_location '''
+   return os.path.join(cfg.rocoto_state_file_temp_location, cfg.experiment_id)
+ 
+def get_rocoto_db_file(cfg):
+   ''' 
+   If necessary, move file to temporary location.
+   Return name of file to be used.
+   ''' 
+   if cfg.lustre_rocoto_hack:
+      ctr = 0
+      while os.path.exists( os.path.join(cfg.rocoto_state_file_temp_location, cfg.experiment_id) ):
+         sleep(0.5)
+         ctr += 1
+         if ctr > 100:
+            print 'There appears to be a stale temporary state file [%s]' %_get_tmp_file(cfg)
+            sys.exit(1)
+      shutil.move(cfg.rocoto_db_path, cfg.rocoto_state_file_temp_location)
+      rocoto_db_file = _get_tmp_file(cfg)
+   else:
+      rocoto_db_file = cfg.rocoto_db_path 
+   return rocoto_db_file
+
+def commit_rocoto_state_file(cfg):
+   ''' If necessary, move temporary file back to original location '''
+   if cfg.lustre_rocoto_hack:
+      shutil.move( _get_tmp_file(cfg), cfg.rocoto_db_path )
+      
+
+def get_member_subdir(cfg, member_number):
+   '''
+   Given a <cfg> object (which encapsulates various experiment settings) and a 
+   member number, return the subdirectory name for a given member
+   '''
+   return cfg.member_dir_prefix + '-' + str(member_number).zfill(cfg.num_digits)
+      
+      
+#
+# Methods for checking if static data is present
+#
+def check_static_ensemble_data_exists(experiment_runner):
+   '''
+   Look for static Real data for the ensemble forecasts
+   If it does not exist in at least one cycle, terminate with exit code 89
+   '''
+   cfg = experiment_runner.get_cfg()
+   log = experiment_runner.get_log()
+   static_data_path = os.path.join(cfg.static_model_data_path, 'horizontal_interpolation', cfg.model_config_id, cfg.metgrid_checksum)
+   
+   for cycleDate in range(cfg.start_date.get_epochtime() , cfg.end_date.get_epochtime() + 1 , cfg.frequency ) :
+      curr_atmos_dir = 'ATMOS.' + get_yyyy_mm_dd_hh_mm(cycleDate)
+      required_data_paths = []
+      member_dirs = [ cfg.member_dir_prefix + str(memNum).zfill(cfg.num_digits) for memNum in range(1, cfg.num_members + 1) ]  
+      ensemble_nmmReal_output_paths = [ os.path.join(static_data_path, cfg.gfs_ensemble_id, curr_atmos_dir,  memberDir) for memberDir in member_dirs ]
+      required_data_paths.extend( ensemble_nmmReal_output_paths )
+      for model_data_path in required_data_paths:
+         if not os.path.exists(model_data_path): 
+            log.error('Specified path to static model data [%s] does not exist. Check your $MODEL_CONFIG_ID, $STATIC_DATA_PATH, $GFS_FORECAST_ROOT, and $GFS_ENSEMBLE_ROOT settings' %model_data_path)
+            sys.exit(88)
+            
+         # Look for (possibly compressed) wrfinput and wrfbdy
+         for fil in [ 'wrfinput_d01', 'wrfbdy_d01' ] :
+            if not ( os.path.exists( os.path.join( model_data_path, fil) ) \
+               or  os.path.exists( os.path.join( model_data_path, fil+'.gz') ) ):
+                 log.error('Missing static Real data file for cycle %s (reading %s)' %(get_yyyy_mm_dd_hh_mm(cycleDate), model_data_path) )
+                 sys.exit(89)
+        
+def check_static_geogrid_data_exists(experiment_runner):
+   ''' Look for geo_nmm files '''
+   cfg = experiment_runner.get_cfg()
+   log = experiment_runner.get_log()
+   geogrid_output_data_path = os.path.join( cfg.static_model_data_path, 'geogrid', cfg.model_config_id, cfg.geogrid_checksum)
+   if not os.path.exists( os.path.join(geogrid_output_data_path, 'geo_nmm.d01.nc') ):
+      log.error('Missing geogrid data for domain  %s looking in [%s]. Check your $MODEL_CONFIG_ID and $STATIC_DATA_PATH settings' %cfg.domain_name, geogrid_output_data_path )
+      sys.exit(87)
+   for i in range(1, cfg.max_dom) :
+      filename = 'geo_nmm_nest.l0%i.nc' %i
+      if not os.path.exists( os.path.join(geogrid_output_data_path, filename) )  :
+         log.error('Missing geogrid data for domain %s, grid %i' %(cfg.domain_name, i+1) )
+         sys.exit(86)
+   
+def check_static_deterministic_data_exists(experiment_runner):
+   ''' Look for Real data from the deterministic forecasts '''
+   cfg = experiment_runner.get_cfg()
+   log = experiment_runner.get_log()
+   model_data_path = os.path.join(cfg.static_model_data_path, 'horizontal_interpolation', cfg.model_config_id, cfg.metgrid_checksum, cfg.gfs_forecast_id)
+   if not os.path.exists(model_data_path): 
+      log.error('Specified path to static model data [%s] does not exist. Check your $MODEL_CONFIG_ID, $STATIC_DATA_PATH, and $GFS_FORECAST_ROOT settings.' %model_data_path)
+      sys.exit(88)
+      
+   for cycleDate in range(cfg.start_date.get_epochtime() , cfg.end_date.get_epochtime() + 1 , cfg.frequency ) :
+      atmos_subdir = 'ATMOS.' + get_yyyy_mm_dd_hh_mm(cycleDate)
+
+      # Look for (possibly compressed) wrfinput and wrfbdy
+      for fil in [ 'wrfinput_d01', 'wrfbdy_d01' ] :
+         curr_real_file = os.path.join( model_data_path, atmos_subdir, fil )
+         curr_real_file_gz = curr_real_file  + '.gz'
+         if not ( os.path.exists( curr_real_file_gz ) or os.path.exists( curr_real_file ) ):
+           log.error('Missing static Real data file for cycle %s (reading %s)' %(get_yyyy_mm_dd_hh_mm(cycleDate), curr_real_file) )
+           sys.exit(85)        
+           
+def check_static_data_exists(experiment_runner):
+   '''
+   Look in the location specified by STATIC_MODEL_DATA_PATH in the config files to ensure
+   that static data exists for all cycles, so we can safely skip those tasks..
+   Static data consists of wrfbdy, wrfinput, and geo_nmm data. (The wrfinput data is used for boundary smoothing)
+   If it does not exist in at least one cycle, terminate with exit code 85-89
+   '''
+   check_static_geogrid_data_exists(experiment_runner)
+   check_static_deterministic_data_exists(experiment_runner)
+   if experiment_runner.get_cfg().da_type == 'enkf':
+      check_static_ensemble_data_exists(experiment_runner)
+      
+#
+# Methods for checking if files for warm init are present
+#
+def check_for_gsi_experiment_warm_start_data(experiment_runner, next_restart_file):
+      ''' Check for restart/wrfinput files in ATMOS dir and satbias files in GSI dir '''
+      cfg = experiment_runner.get_cfg()
+      log = experiment_runner.get_log()
+      next_restart_path = os.path.join( cfg.run_top_dir , 'ATMOS.' + get_yyyy_mm_dd_hh_mm(cfg.start_date.get_epochtime()) , cfg.gfs_forecast_id, next_restart_file )
+      if not os.path.exists( next_restart_path ) :
+         log.error('File not found: %s' %(next_restart_path) ) 
+         log.error('   For warm-init, the previous-cycle WRF input file must be in the run directory.')
+         sys.exit(1)
+   
+      # now ensure the satellite data cyling files are there
+      previous_gsi_date = cfg.start_date.get_epochtime()
+      previous_gsi_path = os.path.join( cfg.run_top_dir , cfg.gsi_ges_subdir + '.' + get_yyyy_mm_dd_hh_mm(previous_gsi_date) )
+      for fil in ('satbias_out', 'satbias_ang.out'):
+         if not os.path.exists( os.path.join(previous_gsi_path, fil) ):
+            log.error('File not found: %s ' %(os.path.join(previous_gsi_path, fil) ) )
+            log.error('   For warm-init, the previous-cycle GSI satellite bias files must be in the run directory.')
+            sys.exit(1)   
+
+def check_for_enkf_experiment_warm_start_data(experiment_runner, next_restart_file):
+   ''' Look for Real data for each member and for satellite bias thinning data '''
+   cfg = experiment_runner.get_cfg()
+   log = experiment_runner.get_log()
+   for i in range(1, cfg.num_members + 1):
+      next_restart_path = os.path.join( cfg.run_top_dir , 
+                                       'ATMOS.' + get_yyyy_mm_dd_hh_mm(cfg.start_date.get_epochtime()) , 
+                                       get_member_subdir(cfg, i), 
+                                       next_restart_file )
+      if not os.path.exists( next_restart_path ) :
+         sys.stderr.write(':O File not found: %s \n' %(next_restart_path) ) 
+         sys.stderr.write('   When doing a warm-init, the previous-cycle input file needs to be in the run directory. \n')
+         sys.exit(1)
+         
+   # sat data thinning
+   previous_gsi_satbias_dir = os.path.join(cfg.run_top_dir, cfg.gsi_ges_subdir + '.' + get_yyyy_mm_dd_hh_mm(cfg.start_date.get_epochtime()), 'data-thin.decisions')
+   for fil in [ 'satbias_in', 'satbias_angle' ]:
+      if not os.path.exists( os.path.join(previous_gsi_satbias_dir, fil) ):
+         log.error('File not found: %s ' %(os.path.join(previous_gsi_path, fil) ) )
+         log.error('   For warm-init, the previous-cycle GSI satellite bias files must be in the run directory.')
+         sys.exit(1)   
+         
+   
+def warm_init_sanity_check(experiment_runner):
+   '''
+   Perform sanity check for a warm initialization (i.e. --warm-init option).
+   Specifically, this routine will look for (1) ATMOS directory for the previous start date 
+   (i.e. START_DATE - CYCLE_FREQUENCY) and the corresponding restart/wrfinput file
+   and (2) GSI directory with satellite bias data
+   '''
+   cfg = experiment_runner.get_cfg()
+   log = experiment_runner.get_log()
+   if cfg.cold_init:
+      print 'ERROR :: Must select either cold initialization OR warm initialization. Not both'
+      sys.exit(1)
+   # ensure that cold start date != start date
+   if cfg.cold_start_date.get_epochtime() == cfg.start_date.get_epochtime():
+      log.error('For warm init, cold start date should not be the same as start date. Check configuration')
+      sys.exit(1)
+
+   # Ensure restart file(s) exists
+   # Note that the experiment's start_date is the actually the previous cycle's start date, since it's based on 
+   # the time of the first guess
+   warm_start_date = cfg.start_date.get_epochtime() + cfg.frequency 
+   if cfg.da_file_type == 'wrfinput':
+      next_restart_file = wrfutils.get_wrfinput_file_name(warm_start_date, domain=cfg.analysis_domain)
+   elif cfg.da_file_type == 'wrfrst':
+      next_restart_file = wrfutils.get_wrfrst_file_name(warm_start_date, domain=cfg.analysis_domain)
+   
+   if cfg.da_type == 'gsi':
+      check_for_gsi_experiment_warm_start_data(experiment_runner, next_restart_file)
+   elif cfg.da_type == 'enkf':
+      check_for_enkf_experiment_warm_start_data(experiment_runner, next_restart_file)
+   else:
+      raise Exception('Unknown DA type!')
+      
+def print_experiment_info(cfg, log):
+   '''
+   Print some information about the experiment to the user
+   '''
+   log.info('Generating workflow definition with the following settings:' )
+   log.info('  Run Directory : %s' %cfg.run_top_dir )
+   log.info('  DA Type: %s' %cfg.da_type) 
+   log.info('  Boundary Conditions for Deterministic forecasts: %s' %cfg.gfs_forecast_id )
+   if cfg.da_type == 'enkf':
+      log.info('  Boundary Conditions for ensemble: %s' %cfg.gfs_ensemble_id )
+   if cfg.da_type != 'coldstart':
+      log.info('  Obs to assimilate: [%s]' %( ', '.join(map(str, cfg.gsi_data_this_experiment)) ) )
+      log.info('  GSI DATA DIRECTORY %s: ' %cfg.gsi_obs_data_dir ) 
+      log.info('  Output file for DA cycling : %s' %cfg.da_file_type)
+   if cfg.da_file_type != 'wrfinput':
+      log.warn('Selected restart for data assimilation, but this requires changes to the code if you want to spawn a nest. These changes were only made for 2012 HWRF. It is  recommended to use wrfinput') 
+
+def parse_options(experiment_runner):
+   '''
+   Parse command line options. The values will be stored in the cfg option
+   of the given <experiment_runner>, which is an ExperimentRunner
+   
+   '''
+   parser = OptionParser()
+   parser.add_option("-f", "--force", dest="force_execution", action='store_true', default=False,
+      help='Force execution of experiment, even if directories exist' )
+   parser.add_option("-r", "--reuse-cold", dest="reuse_static_data", default=False,
+      help='Reuse existing data in LOCATION that does not change for different experiments.', action="store_true")
+   parser.add_option("-m", "--monitor", action="store_true", dest="monitor_mode", default=False,
+      help='Monitor mode: Do not add entry for Cron job, just monitor the experiment until SIGTERM is received.' )
+   parser.add_option("-c", "--cold-init", action="store_true", dest="cold_init", default=False,
+      help="Cold-start run. Generates workflow definition that starts with a cold start run that  initializes from GFS for the given start date." )
+   parser.add_option("-w", "--warm-init", action="store_true", dest="warm_init", default=False,
+      help="Warm Initialization. Generates workflow definition that skips the cold-start run. Looks in 'RUN_TOP_DIR' for the previous DA cycle's wrfin/wrfrst in the corresponding ATMOS directory." )
+   parser.add_option("-v", "--rocoto-verbosity", dest="rocoto_verbosity", default=DEFAULT_ROCOTO_VERBOSITY,
+      help="Value passed to Rocoto's -v option. Larger numbers will have more output. (e.g. 11 will show submission commands). Default=3, which just shows failures",
+      metavar="ROCOTO_VERBOSITY")
+   parser.add_option("-d", "--debug", dest="debug_mode", action="store_true", default=False,
+      help="Enable debug mode. Currently, this sets the log level to 'debug' and enables 'set -x' in job scripts")
+
+   (options, args) = parser.parse_args()
+   cfg = experiment_runner.get_cfg()
+   cfg.force_execution = options.force_execution
+   cfg.reuse_static_data = options.reuse_static_data
+   cfg.monitor_mode = options.monitor_mode
+   cfg.cold_init = options.cold_init 
+   cfg.warm_init = options.warm_init # This will skip the wrf_cold task in the namelist
+   cfg.rocoto_verbosity = options.rocoto_verbosity
+   cfg.debug_mode = options.debug_mode
+   if cfg.warm_init : warm_init_sanity_check(cfg)
+   if cfg.reuse_static_data : 
+      for i in range(1 , cfg.num_members + 1):
+         #check_static_data_exists(cfg, get_member_subdir(cfg, i) )
+         check_static_data_exists(experiment_runner)
+   
+   if cfg.debug_mode :
+      experiment_runner.get_log().set_level(DaffyLog.DEBUG)
+      cfg.debug_mode_str = 'TRUE'
+   else:
+      cfg.debug_mode_str = 'FALSE'
+      
+      
+def get_daffy_revision():
+   ''' 
+   Determine the daffy revision. Try using svn command, if available.
+   Otherwise, try getting from the .svn/entries file
+   If that fails, return 'Unknown'
+   '''
+   try:
+      p = subprocess.Popen("svnversion", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      (stdout, stderr) = p.communicate()
+      daffy_revision = stdout[:-2] # remove 'M' at end
+   except OSError:
+      if os.path.exists('.svn/entries'):
+         v1 = int( open('.svn/entries').readlines()[3].strip() )
+         v2 = int( open('.svn/entries').readlines()[10].strip() )
+         if v1 != v2:
+            print 'unrecognized SVN entries file'
+            sys.exit(13)
+         daffy_revision = str(v1)
+      else:
+         log.error('Unable to determine SVN version. Will set to Unknown')
+         daffy_revision = 'Unknown'
+   return daffy_revision
+      
+def get_gsi_version(cfg):
+   ''' 
+   Determine the version of GSI used
+   '''
+   # First, look for a '.version' in the directory with a dirname
+   if os.path.exists( os.path.join(cfg.gsi_root_dir, '.version') ):
+      return open( os.path.join(cfg.gsi_root_dir, '.version') ).readline().strip()
+   log.warn('No version string found in $GSI_ROOT/.version. Attempting to guess')
+   # for comGSI, I name the directories such that the dirname is the version number
+   if cfg.gsi_root_dir.contains('comgsi'):
+      gsi_version = os.dirname(cfg.gsi_root_dir)
+
+def get_enkf_version(cfg):
+   '''
+   Determine version of the EnKF package being used, by reading the ".version" file
+   in the ENKF_ROOT (passed in as cfg.enkf_root)
+   '''
+   if os.path.exists( os.path.join(cfg.enkf_root, '.version') ):
+      return open( os.path.join(cfg.enkf_root, '.version') ).readline().strip()
+   log.warn('No version string found in $ENKF_ROOT/.version. Will set to "Unknown"')
+   return "Unknown"
+   
+   
+def add_node_with_text(parent_node, child_node_name, child_node_value):
+   '''
+   Add a child node with given name and value to <parent_node>.
+   If <child_node_value> is not a string, try converting it to one
+   '''
+   if not isinstance(child_node_value, basestring): child_node_value = str(child_node_value)
+   
+   child_node = ET.SubElement(parent_node, child_node_name)
+   child_node.text = child_node_value
+
+def get_gsi_bkgerr_hzscl(gsi_namelist_path):
+   ''' Get the hzscl parameter set in the GSI template '''
+   for line in open(gsi_namelist_path).readlines():
+      toks = line.split('=')
+      if toks[0].strip() == 'hzscl':
+         return toks[1].strip()
+   raise Exception('Did not find hzscl entry in namelist')
+   
+
+def add_observations_to_xml(parent_node):
+   ''' 
+   Determine observations assimilated from config and add XML nodes for each one.
+   This method will add an <observation_configuration> tag for each element in 
+   cfg.gsi_data_this_experiment, which corresponds to the value entered in 
+   experiment.cfg.sh. For each <observation_configuration>, add <observation>
+   nodes containing the elements in the corresponding observation_configuration's
+   cfg file in gsi_ob_mappings
+   '''
+   for obCfg in cfg.gsi_data_this_experiment:
+      obs_cfg_node = ET.SubElement(parent_node, 'observations_configuration')
+      ob_cfg_node.set('name', obCfg)
+      try:
+         ob_cfg_file = open( os.path.join(cfg.gsi_obs_cfg_topdir, obCfg + '.cfg'), 'r')
+      except:
+         log.error('Unable to open observation configuration file: %s' %ob_cfg_file.name)
+         sys.exit(13)
+      for line in ob_cfg_file.readlines():
+         ob_node = ET.SubElement(ob_cfg_node, 'observation')
+         if line.startswith('#') or len(data) == 0: continue
+         data = line.split()
+         if len(data) != 4:
+            sys.stderr.write('Unsupported line:\n\n%s\n\nAn entry is required for each of the 4 columns and not additional whitespace is allowed\n' %line )
+            sys.exit(2)
+         ob_node.set('gsi_target_file', data[0] )
+         ob_node.set('tag', data[1])
+         ob_node.set('data_path', data[2])
+         ob_node.set('file_pattern' , data[3])
+     ob_cfg_file.close()
+     
+      
+def commit_to_global_database(experiment_runner):
+  
+   log = experiment_runner.get_log()
+   cfg = experiment_runner.get_cfg()
+
+   if not os.path.exists('.experiment_id'):
+      expt_id =  str(uuid.uuid1().int)
+      open('.experiment_id', 'w').write( expt_id )
+   else:
+      expt_id = open( '.experiment_id').readline().strip()
+      if len(expt_id) < 10:
+         log.error('Found experiment ID file (.experiment_id), but it appears to be invalid. You may want to simply delete it')
+         sys.exit(1)
+      # TODO : Make this so that it only prints once, instead of every time we enter this method
+      #log.info("Found existing experiment ID %s" %expt_id)
+      
+   root = ET.Element('experiment')
+   root.set('da_type', cfg.da_type)
+   root.set('uuid', expt_id)
+   # add basic data
+   #node = ET.SubElement(root, 'start_date') node.text = cfg.start_date
+   add_node_with_text(root, 'start_date', cfg.start_date.get_date_str() )
+   add_node_with_text(root, 'cycle_frequency', cfg.frequency)
+   add_node_with_text(root, 'user', os.environ['USER'])
+   add_node_with_text(root, 'supercomputer', cfg.supercomputer)
+   add_node_with_text(root, 'daffy_revision', get_daffy_revision() )
+   # add observations   
+   for obsData in cfg.gsi_data_this_experiment:
+      add_node_with_text(root, 'observation', obsData)
+   # add subelement with model data
+   model_node = ET.SubElement(root, 'model')
+   wrf_version = open( os.path.join(cfg.wrf_dir, 'README')).readline().split()[3]
+   add_node_with_text(model_node, 'hwrf_version', wrf_version)
+   add_node_with_text(model_node, 'gfs_forecast_id', cfg.gfs_forecast_id)
+   add_node_with_text(model_node, 'gfs_data_root', cfg.gfs_data_root)
+   add_node_with_text(model_node, 'hwrf_namelist_template', cfg.wrf_namelist_template)
+
+   # add subelement with domain data
+   domain_node = ET.SubElement(root, 'domain')
+   add_node_with_text(domain_node, 'domain_name', cfg.domain_name)
+   add_node_with_text(domain_node, 'dx', cfg.dx)
+   add_node_with_text(domain_node, 'dy', cfg.dy)
+   add_node_with_text(domain_node, 'grid_size_we', cfg.e_we)
+   add_node_with_text(domain_node, 'grid_size_sn', cfg.e_sn)
+   
+   # add data assimilation information
+   if cfg.da_type in ('enkf', 'gsi', 'hybrid'):
+         
+      da_node = ET.SubElement(root, 'data_assimilation')
+      # ... put general data assimilation information
+      add_node_with_text(da_node, 'gsi_version', get_gsi_version(cfg) )
+      add_node_with_text(da_node, 'gsi_namelist_template', cfg.gsi_namelist_template) # we can cross reference with DAFFY-version
+      add_node_with_text(da_node, 'analysis_domain', cfg.analysis_domain)
+      add_node_with_text(da_node, 'multi_time_level_analysis', cfg.multi_time_level_analysis)
+      add_node_with_text(da_node, 'satinfo_file', cfg.satinfo_file)
+      add_node_with_text(da_node, 'convinfo_file', cfg.convinfo_file)
+      if cfg.multi_time_level_analysis:
+         add_node_with_text(da_node, 'number_of_time_levels', cfg.num_time_levels)
+      add_node_with_text(da_node, 'perform_satellite_thinning', cfg.perform_satellite_thinning)   
+      # ... then information about the observations used
+      add_node_with_text(da_node, 'observations_data_root', cfg.gsi_obs_data_dir)
+      obs_node = ET.SubElement(da_node, 'observations')
+      add_observations_to_xml(obs_node)
+      
+      # ... then information specific to the data assimilation type used
+      if cfg.da_type == 'gsi':
+         # since GSI is also used with EnKF, only put GSI _analysis_ related things here
+         gsi_node = ET.SubElement(da_node, 'gsi_analysis_settings')
+         add_node_with_text(gsi_node, 'background_error_horizontal_scale', get_gsi_bkgerr_hzscl(cfg.gsi_namelist_template) )
+         add_node_with_text(gsi_node, 'assimilation_time_window', cfg.assimilation_time_window)
+         add_node_with_text(gsi_node, 'background_error_stats_file', cfg.background_error_stats_file)
+      elif cfg.da_type == 'enkf':
+         enkf_node = ET.SubElement(da_node, 'enkf_configuration')
+         add_node_with_text(enkf_node, 'enkf_version', get_enkf_version(cfg))
+         add_node_with_text(enkf_node, 'enkf_path', cfg.enkf_root)
+         
+         
+         
+      
+   # TODO: This should be set on the first invocation only
+   t = time.localtime()
+   add_node_with_text(root, 'experiment_init', '%s/%s/%s' %(t.tm_mon, t.tm_mday, t.tm_year) )
+   
+   # output to file
+   out = ET.tostring(root)
+   xmlOut = xml.dom.minidom.parseString(out)
+   xmlText = xmlOut.toprettyxml()
+   xmlFile = open('config.xml', 'w')
+   for line in xmlText.splitlines():
+      xmlFile.write(line + '\n')
+   xmlFile.close()
+
+   # "ugly" output
+   #tree = ET.ElementTree(root)
+   #tree.write("experiment.xml")
+
+   

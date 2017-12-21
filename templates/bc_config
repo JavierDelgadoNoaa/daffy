@@ -1,0 +1,13 @@
+#Bias correction configuration
+setenv GSI_DIR  __GSI_DIR__
+setenv OBS_TYPE __OBS_TYPE__ 
+setenv SAT_NAME __SAT_NAME__
+setenv INS_NAME __INSTRUMENT_NAME__
+setenv RUN_NAME __EXPERIMENT_ID__
+
+# Channels
+setenv CH1 72
+setenv CH2 129
+setenv CH3 210
+setenv CH4 256
+setenv CH5 787

@@ -1,0 +1,10 @@
+ &fileio
+   variablefile_list_analysis = '__VARIABLEFILE_LIST_ANALYSIS__'
+   variablefile_list_enkf     = '__VARIABLEFILE_LIST_ENKF__'
+   nmm                        = .true.
+   nanals                     = __NUM_MEMBERS__
+   inflate_coeff              = __INFLATE_COEFF__
+   is_enkf                    = .true.
+   debug                      = .true.
+ /
+ 

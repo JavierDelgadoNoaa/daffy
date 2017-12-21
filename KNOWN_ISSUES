@@ -1,0 +1,14 @@
+- There are two bugs in the GSI script
+ (1) Ensemble mean calculation for firstguess is failing, so the EnKF actually
+     just using member001 data the ensemble mean
+     "Fixing" this results in the model randomly blowing up
+  (2) For satellite data cycling, there is an == where there should be a !=
+
+- EnKF experiments cannot be done with 'wrfinput' for DA, because enkf executable
+  modifies the NSTART_HOUR parameter, which doesn't exist in wrfinput files
+
+- Diapost needs variables that are not in the auxhist files. So for the ensemble mean, for
+  the analysis time, I'm using the restart/wrfinput file. I don't know if this can negatively
+  impact the integrity of the system.
+  Search for "jza20140122" in the gsi script.
+

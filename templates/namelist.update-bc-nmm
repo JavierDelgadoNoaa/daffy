@@ -1,0 +1,6 @@
+&fileio
+	file_wrfbdy='./wrfbdy_d01',
+   file_wrfinput='./wrfinput_d01',
+   file_wrfda='./wrfrst_d01_2005-08-01_06:00:00'
+   debug=.true.
+/
